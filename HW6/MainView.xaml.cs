@@ -20,9 +20,9 @@ namespace HW6
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainView : Window
     {
-        public MainWindow()
+        public MainView()
         {
             InitializeComponent();
         }
@@ -30,14 +30,6 @@ namespace HW6
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Task t = Task.Factory.StartNew(() => MessageBox.Show(" QuickCall - это:\n\n -Универсальный поиск организаций и учреждений.\n -Мгновенное добавление номеров в телефонную книгу android.\n\nЧто-то ещё? Пишите!"));
-            Task t2 = Task.Factory.StartNew(() =>
-            {
-                var i = 20;
-                while (i>5)
-                {
-                    AddOneResult(new DTO.Feature()); Task.Delay(5000); i--;
-                } 
-            });
         }
 
         private void Button_Switch_Mode(object sender, RoutedEventArgs e)
@@ -63,7 +55,7 @@ namespace HW6
             }
             #endregion
         }
-
+        /*
         private void Search_Click(object sender, RoutedEventArgs e)
         {
             SwitchBarOn(true);
@@ -86,7 +78,7 @@ namespace HW6
                     queryResult = API.Query(qText + " " + qCity);
                     foreach (var item in queryResult.Features)
                     {
-                        MessageBox.Show(item.Properties.Description);
+                        ShowOneResult(item);
                     }
                     SwitchBarOn(false);
                 }
@@ -99,9 +91,9 @@ namespace HW6
             });
 
         }
-        private void SwitchBarOn(bool sw)
+        private void SwitchBar(string sw)
         {
-            if (sw)
+            if (sw=="On")
             {
                 Search.Dispatcher.BeginInvoke(new Action(() => Search.Visibility = Visibility.Hidden));
                 Bar.Dispatcher.BeginInvoke(new Action(() => Bar.IsIndeterminate = true));
@@ -114,21 +106,6 @@ namespace HW6
                 Bar.Dispatcher.BeginInvoke(new Action(() => Bar.Visibility = Visibility.Hidden));
             }
         }
-        private void AddOneResult(DTO.Feature Company)
-        {
-            //I gave up and had no forces to understand MVVM.
-
-            Stack.Dispatcher.BeginInvoke(DispatcherPriority.Send , new Action(() =>
-            { 
-                Stack.Children.Add(
-                    new Border() { BorderThickness = new Thickness(1), CornerRadius = new CornerRadius(15), Height = 104, Width = 650, Background = System.Windows.Media.Brushes.LightBlue, VerticalAlignment = VerticalAlignment.Top, BorderBrush = System.Windows.Media.Brushes.Black, Child = new Grid() }
-                    );
-                UIElementCollection children = Stack.Children;
-
-                //Добавление необходимых элементов вывода
-                ((Grid)((Border)children[children.Count-1]).Child).Children.Add(new TextBox() { HorizontalAlignment = HorizontalAlignment.Left, Height = 27, Margin = new Thickness(145, 66, 0, 0), TextWrapping = TextWrapping.Wrap, Text = "", VerticalAlignment = VerticalAlignment.Top, Width = 297, FontSize = 18 });
-                
-            }));
-        }
+        */
     }
 }
